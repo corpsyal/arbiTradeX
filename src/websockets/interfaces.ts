@@ -10,5 +10,6 @@ export enum Exchange {
 }
 
 export interface WebsocketClient {
+    exchange: Exchange
     messages$: Observable<WebsocketLastTradeEvent>
 }
