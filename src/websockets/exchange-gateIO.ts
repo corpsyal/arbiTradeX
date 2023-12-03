@@ -26,7 +26,7 @@ export class ExchangeGateIO extends WebsocketExchangeClient {
     protected _map(event: any): WebsocketLastTradeEvent {
         return {
             exchange: Exchange.GATEIO,
-            price: +event.result.price,
+            price: (+event.result.price * 100) / 100,
             timestamp: event.time_ms
         };
     }

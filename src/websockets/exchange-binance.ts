@@ -25,7 +25,7 @@ export class ExchangeBinance extends WebsocketExchangeClient {
 
     protected _map(event: any): WebsocketLastTradeEvent {
         return {
-            price: event.p,
+            price: (+event.p * 100) / 100,
             exchange: Exchange.BINANCE,
             timestamp: event.T
         }
