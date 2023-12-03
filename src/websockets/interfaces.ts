@@ -1,15 +1,11 @@
-import {Observable} from "rxjs";
 
 export interface WebsocketLastTradeEvent {
-
+    price: number,
+    exchange: Exchange,
+    timestamp: number
 }
 
 export enum Exchange {
-    GATEIO,
-    BINANCE
-}
-
-export interface WebsocketClient {
-    exchange: Exchange
-    messages$: Observable<WebsocketLastTradeEvent>
+    GATEIO= 'GateIO',
+    BINANCE = 'Binance'
 }
