@@ -1,9 +1,13 @@
 import { Module } from '@nestjs/common';
-import {ExchangeGateIO} from "./exchange-gateIO";
 import {ExchangeBinance} from "./exchange-binance";
 import { WebsocketsService } from './websockets.service';
 
 @Module({
-    providers: [ExchangeGateIO, ExchangeBinance, WebsocketsService]
+    providers: [ExchangeBinance, WebsocketsService],
+    exports: [WebsocketsService]
 })
-export class WebsocketsModule {}
+export class WebsocketsModule {
+    constructor() {
+        console.log('websocket module constructor')
+    }
+}

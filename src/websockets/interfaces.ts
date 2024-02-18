@@ -2,7 +2,8 @@
 export interface WebsocketLastTradeEvent {
     price: number,
     exchange: Exchange,
-    timestamp: number
+    timestamp: number,
+    symbol: string,
 }
 
 export enum Exchange {

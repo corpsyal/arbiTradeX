@@ -16,18 +16,16 @@ export class ExchangeBinance extends WebsocketExchangeClient {
     }
 
     protected _processMessage(data: any) {
-        if (data && data?.result === null && data?.id === 1)
-            this._isConnected.next(true)
-
         if (data.e === 'trade')
-            this._messages.next(this._map(data))
+            this._messages.next(this._mapTrade(data))
     }
 
-    protected _map(event: any): WebsocketLastTradeEvent {
+    protected _mapTrade(event: any): WebsocketLastTradeEvent {
         return {
-            price: (+event.p * 100) / 100,
+            price: event.p,
             exchange: Exchange.BINANCE,
-            timestamp: event.T
+            timestamp: event.T,
+            symbol: event.s
         }
     }
 }

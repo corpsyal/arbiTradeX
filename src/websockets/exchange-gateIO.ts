@@ -16,18 +16,16 @@ export class ExchangeGateIO extends WebsocketExchangeClient {
     }
 
     protected _processMessage(data: any) {
-        if (data && data?.event === 'subscribe' && data?.result?.status === 'success')
-            this._isConnected.next(true)
-
         if (data.event === 'update')
-            this._messages.next(this._map(data))
+            this._messages.next(this._mapTrade(data))
     }
 
-    protected _map(event: any): WebsocketLastTradeEvent {
+    protected _mapTrade(event: any): WebsocketLastTradeEvent {
         return {
             exchange: Exchange.GATEIO,
-            price: (+event.result.price * 100) / 100,
-            timestamp: event.time_ms
+            price: event.result.price,
+            timestamp: event.time_ms,
+            symbol: event.s
         };
     }
 }
