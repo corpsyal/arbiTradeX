@@ -1,20 +1,22 @@
 import { Injectable } from '@nestjs/common';
-import {ExchangeGateIO} from "./exchange-gateIO";
 import {ExchangeBinance} from "./exchange-binance";
-import {combineLatest, filter, merge, Observable, Subscription, switchMap} from "rxjs";
+import { Observable, Subscription, switchMap } from "rxjs";
+import { LastTradeEvent } from "./interfaces";
 
 @Injectable()
 export class WebsocketsService {
-    private _messages$: Observable<any>;
+    private _message$: Observable<LastTradeEvent> = this._exchangeBinance.isConnected$.pipe(
+        switchMap(() => this._exchangeBinance.messages$)
+    );
 
-    constructor(private _exchangeBinance: ExchangeBinance) {
-        this._messages$ = this._exchangeBinance.isConnected$.pipe(
-            switchMap(() => this._exchangeBinance.messages$)
-        );
-    }
+    constructor(private _exchangeBinance: ExchangeBinance) {}
 
     start(): Subscription {
-        return this._messages$.subscribe();
+        return this._message$.subscribe();
+    }
+
+    get message(): Observable<LastTradeEvent>{
+        return this._message$;
     }
 
 }

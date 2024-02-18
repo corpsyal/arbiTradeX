@@ -1,4 +1,4 @@
-import {Exchange, WebsocketLastTradeEvent} from "./interfaces"
+import {Exchange, LastTradeEvent} from "./interfaces"
 import {WebsocketExchangeClient} from "./WebsocketExchangeClient";
 
 export class ExchangeGateIO extends WebsocketExchangeClient {
@@ -20,8 +20,9 @@ export class ExchangeGateIO extends WebsocketExchangeClient {
             this._messages.next(this._mapTrade(data))
     }
 
-    protected _mapTrade(event: any): WebsocketLastTradeEvent {
+    protected _mapTrade(event: any): LastTradeEvent {
         return {
+            id: event.t,
             exchange: Exchange.GATEIO,
             price: event.result.price,
             timestamp: event.time_ms,

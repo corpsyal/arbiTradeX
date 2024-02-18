@@ -1,5 +1,6 @@
 
-export interface WebsocketLastTradeEvent {
+export interface LastTradeEvent {
+    id: number,
     price: number,
     exchange: Exchange,
     timestamp: number,

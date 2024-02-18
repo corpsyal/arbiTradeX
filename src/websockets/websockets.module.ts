@@ -7,7 +7,5 @@ import { WebsocketsService } from './websockets.service';
     exports: [WebsocketsService]
 })
 export class WebsocketsModule {
-    constructor() {
-        console.log('websocket module constructor')
-    }
+    constructor() {}
 }
