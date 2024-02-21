@@ -10,7 +10,7 @@ export class ExchangeBinance extends WebsocketExchangeClient {
             "wss://stream.binance.com:443/ws",
             {
             "method": "SUBSCRIBE",
-            "params": [ "btcusdt@trade" ],
+            "params": [ "btcusdt@trade", "ethusdt@trade", "ethbtc@trade" ],
             "id": 1
         });
     }
