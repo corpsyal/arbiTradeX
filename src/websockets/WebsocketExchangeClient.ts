@@ -1,5 +1,5 @@
 import {BehaviorSubject, filter, Observable, share, shareReplay, Subject, tap} from "rxjs";
-import {Exchange, LastTradeEvent} from "./interfaces";
+import {Exchange, LastTradeEvent, Symbol} from "./interfaces";
 import {Logger} from "@nestjs/common";
 import {WebSocket} from "ws";
 
@@ -16,6 +16,7 @@ export abstract class WebsocketExchangeClient {
 
     protected abstract _processMessage(data: any): void;
     protected abstract _mapTrade(event: any): LastTradeEvent;
+    protected abstract _mapSymbol(symbol: string): Symbol;
 
     protected constructor(public exchange: Exchange, protected _wsURL: string, protected _subscribeData: any) {
         this._logger = new Logger(this.exchange);

@@ -1,4 +1,4 @@
-import {Exchange, LastTradeEvent} from "./interfaces";
+import {Exchange, LastTradeEvent, Symbol} from "./interfaces";
 import {WebsocketExchangeClient} from "./WebsocketExchangeClient";
 
 export class ExchangeBinance extends WebsocketExchangeClient {
@@ -26,7 +26,20 @@ export class ExchangeBinance extends WebsocketExchangeClient {
             price: event.p,
             exchange: Exchange.BINANCE,
             timestamp: event.T,
-            symbol: event.s
+            symbol: this._mapSymbol(event.s)
         }
+    }
+
+    protected _mapSymbol(binanceSymbol: string): Symbol {
+        const mapping: {[key: string]: Symbol} = {
+            'BTCUSDT': Symbol.BTC_USDT,
+            'ETHUSDT': Symbol.ETH_USDT,
+            'ETHBTC': Symbol.ETH_BTC,
+        }
+        const symbol = mapping[binanceSymbol];
+
+        if (symbol === undefined) throw new Error(`Symbol ${binanceSymbol} not supported`)
+
+        return symbol;
     }
 }
