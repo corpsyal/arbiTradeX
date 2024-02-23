@@ -9,8 +9,8 @@ export class ArbitrageOpportunityDetector {
             map(ArbitrageOpportunityDetector.chooseOptimalTriangularEvents),
             map(ArbitrageOpportunityDetector.checkTemporality),
             filter(events => events.length === 3),
-            debounceTime(1000),
-            tap((events) => console.log(events, 'DEBUG')),
+            //debounceTime(1000),
+
             // implémenter la logique permettant de déduire si une opportunité est présente ou non
             // - rentabilité (prise en compte des fees)
         )
